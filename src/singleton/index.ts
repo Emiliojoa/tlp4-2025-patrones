@@ -9,7 +9,7 @@ class ModuloInventario {
     }
 
     async consultarProductos() {
-        console.log(" Módulo Inventario: Consultando productos...");
+        console.log(" Módulo Inventario: Consultando productos ");
         try {
             const productos = await this.db.ejecutarConsulta("SELECT * FROM inventario");
             console.log(" Productos encontrados:", productos.length);
@@ -28,7 +28,7 @@ class ModuloUsuarios {
     }
 
     async consultarUsuarios() {
-        console.log(" Módulo Usuarios: Consultando usuarios...");
+        console.log(" Módulo Usuarios: Consultando usuarios");
         try {
             const usuarios = await this.db.ejecutarConsulta("SELECT * FROM usuarios");
             console.log(" Usuarios encontrados:", usuarios.length);
@@ -63,8 +63,7 @@ export async function runSingleton() {
 
 
     const conexion1 = ConexionDB.getInstance();
-    const conexion2 = ConexionDB.getInstance();
-    const conexion3 = ConexionDB.getInstance();
+
 
     console.log("\n");
     const info = conexion1.obtenerInfoConexion();
@@ -78,7 +77,7 @@ export async function runSingleton() {
     conexion1.conectar();
     
     
-    await new Promise(resolve => setTimeout(resolve, 150));
+    
 
     console.log(`Estado de conexión: ${conexion1.estaConectado()}`);
 
@@ -108,14 +107,14 @@ console.log("\n ");
         console.log("Error al intentar crear instancia directa:", error);
     }
 
-    console.log("\n === Prueba de estado compartido ===");
-    console.log(`Estado desde conexion1: ${conexion1.estaConectado()}`);
-    console.log(`Estado desde conexion2: ${conexion2.estaConectado()}`);
-    console.log(`Estado desde conexion3: ${conexion3.estaConectado()}`);
+    // console.log("\n === Prueba de estado compartido ===");
+    // console.log(`Estado desde conexion1: ${conexion1.estaConectado()}`);
+    // console.log(`Estado desde conexion2: ${conexion2.estaConectado()}`);
+    // console.log(`Estado desde conexion3: ${conexion3.estaConectado()}`);
     
-    conexion2.desconectar();
-    console.log(`\nDespués de desconectar desde conexion2:`);
-    console.log(`Estado desde conexion1: ${conexion1.estaConectado()}`);
-    console.log(`Estado desde conexion3: ${conexion3.estaConectado()}`);
+    // conexion2.desconectar();
+    // console.log(`\nDespués de desconectar desde conexion2:`);
+    // console.log(`Estado desde conexion1: ${conexion1.estaConectado()}`);
+    // console.log(`Estado desde conexion3: ${conexion3.estaConectado()}`);
 
 }

@@ -2,23 +2,23 @@ import { IConexionDB } from "../interfaces/IConexionDB";
 
 export class ConexionDB implements IConexionDB {
     private static instance: ConexionDB;
-    private conectado: boolean = false;
+    private conectado: boolean = true;
     
     private readonly host: string = "localhost";
-    private readonly puerto: number = 5432;
-    private readonly usuario: string = "admin_inventario";
-    private readonly baseDatos: string = "inventario_db";
-    private readonly password: string = "***********";
+    private readonly puerto: number = 1111;
+    private readonly usuario: string = "EmiliJJoa";
+    private readonly baseDatos: string = "MIdatabase";
+
 
     private constructor() {
-        console.log("Inicializando configuración de base de datos...");
+        console.log("Inicializando configuración de base de datos");
     }
 
   
     public static getInstance(): ConexionDB {
         if (!ConexionDB.instance) {
             ConexionDB.instance = new ConexionDB();
-            console.log("Nueva instancia de ConexionDB creada (Singleton)");
+            console.log("Nueva instancia de ConexionDB creada");
         } else {
             console.log("Reutilizando instancia existente de ConexionDB");
         }
@@ -32,15 +32,10 @@ export class ConexionDB implements IConexionDB {
             return;
         }
 
-        console.log("Estableciendo conexión a la base de datos...");
+        console.log("Estableciendo conexión a la base de datos ");
         console.log(`Host: ${this.host}:${this.puerto}`);
         console.log(`Usuario: ${this.usuario}`);
         console.log(`Base de datos: ${this.baseDatos}`);
-
-        setTimeout(() => {
-            this.conectado = true;
-            console.log(" Conexión a la base de datos establecida exitosamente");
-        }, 100);
     }
 
     public desconectar(): void {
@@ -72,12 +67,11 @@ export class ConexionDB implements IConexionDB {
 
     public async ejecutarConsulta(consulta: string): Promise<any[]> {
         if (!this.conectado) {
-            throw new Error(" No hay conexión a la base de datos. Conecte primero.");
+            throw new Error(" No hay conexión a la base de datos, conecte primero ");
         }
 
         console.log(` Ejecutando consulta: ${consulta}`);
         
-        await new Promise(resolve => setTimeout(resolve, 200));
         
         if (consulta.toLowerCase().includes("inventario")) {
             return [
