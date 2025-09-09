@@ -24,14 +24,13 @@ export async function runAdapter() {
             console.log(`   ${todo.completed ? '✅' : '❌'} [${todo.id}] ${todo.title}`);
         });
     } catch (error) {
-        console.error("❌ Error con FetchAdapter:", error);
+        console.error(" Error con FetchAdapter:", error);
     }
 
-    console.log("\n🔄 Cambiando adapter a AxiosAdapter...\n");
 
     httpClient.setAdapter(axiosAdapter);
 
-    console.log("📡 === Usando AxiosAdapter ===");
+
     try {
         const todo5 = await httpClient.get<any>("https://jsonplaceholder.typicode.com/todos/5");
         console.log("AXIOSSSSS")
@@ -61,5 +60,41 @@ export async function runAdapter() {
         console.log(`   Datos idénticos: ${JSON.stringify(fetchResult) === JSON.stringify(axiosResult) ? '✅' : '❌'}`);
     } catch (error) {
         console.error("❌ Error en comparación:", error);
+    }
+
+
+    try {
+        httpClient.setAdapter(fetchAdapter);
+        const newTodo = {
+            title: 'Nuevo TODO desde Fetch',
+            body: 'Este TODO fue creado usando FetchAdapter',
+            userId: 1,
+            completed: false
+        };
+        
+        const createdTodoFetch = await httpClient.post<any>("https://jsonplaceholder.typicode.com/posts", newTodo);
+        console.log("FETCHHHHHH");
+        console.log(`   ID  ${createdTodoFetch.id}`);
+        console.log(`   userId ${createdTodoFetch.userId}`);
+        console.log(`   Tittle: ${createdTodoFetch.title}`);
+        console.log(`   Completed: ${createdTodoFetch.completed}`);
+
+
+        httpClient.setAdapter(axiosAdapter);
+        const anotherTodo = {
+            title: 'Nuevo TODO desde Axios',
+            body: 'Este TODO fue creado usando AxiosAdapter',
+            userId: 1,
+            completed: false
+        };
+        
+        const createdTodoAxios = await httpClient.post<any>("https://jsonplaceholder.typicode.com/posts", anotherTodo);
+        console.log("AXIOSSS");
+        console.log(`   ID  ${createdTodoAxios.id}`);
+        console.log(`   userId ${createdTodoAxios.userId}`);
+        console.log(`   Tittle: ${createdTodoAxios.title}`);
+        console.log(`   Completed: ${createdTodoAxios.completed}`);
+    } catch (error) {
+        console.error(" Error en POST:", error);
     }
 }
