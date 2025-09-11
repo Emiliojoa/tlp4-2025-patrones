@@ -17,15 +17,17 @@ export async function runObserver() {
     ];
 
     estudiantes.forEach(estudiante => {
-        console.log(` ${estudiante.nombre}`);
+        console.log(`${estudiante.nombre}`);
     });
 
     estudiantes.forEach(estudiante => {
         profesor.subscribe(estudiante);
     });
 
-    console.log(` Total de estudiantes suscritos: ${profesor.getSubscribersCount()}`);
 
+    console.log(`Total de estudiantes suscritos: ${profesor.getSubscribersCount()}`);
+
+    console.log("\n")
     
     const tarea1 = {
         titulo: "Proyecto Final: Aplicación con Patrones de Diseño",
@@ -40,11 +42,11 @@ export async function runObserver() {
     console.log(` ${estudiantes[1].nombre} abandona el classrom y no recibirá más tareas`);
     profesor.unsubscribe(estudiantes[1]);
     
-    console.log(` Total de estudiantes suscritos después de la baja: ${profesor.getSubscribersCount()}`);
+    console.log(`Total de estudiantes suscritos después de la baja: ${profesor.getSubscribersCount()}`);
 
 
 
-    console.log(`${estudiantes[1].nombre} se reintegra a la clase...`);
+    console.log(`${estudiantes[1].nombre} se reintegra a la clase `);
     profesor.subscribe(estudiantes[1]);
     
     

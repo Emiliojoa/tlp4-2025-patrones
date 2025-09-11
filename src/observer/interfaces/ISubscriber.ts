@@ -1,5 +1,3 @@
-
-
-export interface ISubscriber{
+export interface ISubscriber {
     update(data: any): void;
 }
